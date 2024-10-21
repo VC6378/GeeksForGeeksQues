@@ -145,23 +145,24 @@ struct Node
 class Solution {
   public:
   
-    void inorder(Node *root,vector<vector<int>> &paths,vector<int> path){
+    void f(Node*root,vector<vector<int>> &ans,vector<int> temp){
         if(root==NULL) return;
-        path.push_back(root->data);
-        inorder(root->left,paths,path);
+        temp.push_back(root->data);
+        f(root->left,ans,temp);
         if(root->left==NULL && root->right==NULL){
-            paths.push_back(path);
-            
+            ans.push_back(temp);
+            return;
         }
-        inorder(root->right,paths,path);
+        
+        f(root->right,ans,temp);
     }
   
     vector<vector<int>> Paths(Node* root) {
         // code here
-        vector<vector<int>> paths;
-        vector<int> path;
-        inorder(root,paths,path);
-        return paths;
+        vector<vector<int>> ans;
+        vector<int> temp;
+        f(root,ans,temp);
+        return ans;
     }
 };
 
